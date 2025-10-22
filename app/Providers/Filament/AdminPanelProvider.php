@@ -10,6 +10,7 @@ use Filament\Pages\Dashboard;
 use Jacobtims\FilamentLogger\FilamentLoggerPlugin;
 use Joaopaulolndev\FilamentEditProfile\FilamentEditProfilePlugin;
 use Filament\Panel;
+use Filament\Enums\ThemeMode;
 use Filament\PanelProvider;
 use Filament\Support\Colors\Color;
 use Filament\Widgets\AccountWidget;
@@ -31,7 +32,14 @@ class AdminPanelProvider extends PanelProvider
             ->path('admin')
             ->login()
             ->colors([
-                'primary' => Color::Blue,
+                
+                'primary' => Color::Emerald,
+                'gray' => Color::Slate,
+                'danger' => Color::Red,
+                'info' => Color::Sky,
+                'success' => Color::Green,
+                'warning' => Color::Amber,
+                
             ])
             ->discoverResources(in: app_path('Filament/Resources'), for: 'App\Filament\Resources')
             ->discoverPages(in: app_path('Filament/Pages'), for: 'App\Filament\Pages')
@@ -68,6 +76,8 @@ class AdminPanelProvider extends PanelProvider
                 FilamentLoggerPlugin::make(),
                 FilamentEditProfilePlugin::make()
                     ->setIcon('heroicon-o-user'),
-            ]);
+            ])
+            ->darkMode(true)
+            ->defaultThemeMode(ThemeMode::Dark);
     }
 }
