@@ -17,7 +17,7 @@ class PaymentForm
         return $schema
             ->schema([
                 Select::make('project_id')
-                    ->relationship('project', 'project_number')
+                    ->relationship('project', 'title')
                     ->searchable()
                     ->required()
                     ->reactive()
@@ -30,6 +30,7 @@ class PaymentForm
                 Select::make('client_id')
                     ->relationship('client', 'name')
                     ->disabled()
+                    ->dehydrated(true)
                     ->required(),
                 TextInput::make('amount')
                     ->numeric()

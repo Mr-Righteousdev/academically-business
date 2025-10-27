@@ -2,9 +2,13 @@
 
 namespace App\Models;
 
+use App\Models\Client;
+use App\Models\Project;
+use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Support\Facades\Auth;
 
 class Payment extends Model
 {
@@ -47,13 +51,19 @@ class Payment extends Model
     {
         parent::boot();
 
+        static::creating(function ($payment) {
+            // Automatically set the logged-in user as recorded_by
+            if (Auth::check()) {
+                $payment->recorded_by = Auth::id();
+            }
+        });
+
         static::created(function ($payment) {
             $payment->project->update([
                 'total_paid' => $payment->project->payments()->sum('amount'),
             ]);
             $payment->project->updateBalance();
 
-            // Update payment status
             $project = $payment->project;
             $totalPaid = $project->total_paid;
             $agreedPrice = $project->agreed_price;
