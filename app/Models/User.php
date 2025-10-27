@@ -4,12 +4,14 @@ namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use App\Models\Communication;
+use App\Models\Contribution;
 use App\Models\Document;
 use App\Models\Expense;
 use App\Models\Payment;
 use App\Models\Project;
 use App\Models\Task;
 use App\Models\TimeLog;
+use Filament\Panel;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -52,6 +54,16 @@ class User extends Authenticatable
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
         ];
+    }
+
+    public function canAccessPanel(Panel $panel): bool
+    {
+    // Allow specific usernames
+    $allowedNames = ['Sannie', 'Trevor', 'Dev'];
+
+    // Check if the user's name matches OR they have the special email domain
+    return in_array($this->name, $allowedNames, true)
+        || str_ends_with($this->email, '@acadadmin.com');
     }
 
     public function assignedProjects(): HasMany
