@@ -3,8 +3,9 @@
 namespace App\Filament\Resources\Contributions\Schemas;
 
 use Filament\Forms\Components\DatePicker;
-use Filament\Forms\Components\TextInput;
+use Filament\Forms\Components\Select;
 use Filament\Forms\Components\Textarea;
+use Filament\Forms\Components\TextInput;
 use Filament\Schemas\Schema;
 
 class ContributionForm
@@ -13,7 +14,7 @@ class ContributionForm
     {
         return $schema
             ->components([
-                TextInput::make('contributed_by')
+                Select::make('contributed_by')
                 ->label('Contributed By')
                 ->relationship('contributor', 'name')
                 ->searchable()
