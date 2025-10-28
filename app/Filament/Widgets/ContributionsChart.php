@@ -9,7 +9,7 @@ class ContributionsChart extends ChartWidget
 {
     protected ?string $heading = 'Member Contributions (Last 6 Months)';
     protected static ?int $sort = 3;
-    protected int | string | array $columnSpan = 'full';
+    protected int | string | array $columnSpan = 1;
 
     protected function getData(): array
     {
