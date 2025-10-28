@@ -60,11 +60,12 @@ class User extends Authenticatable implements FilamentUser
     public function canAccessPanel(Panel $panel): bool
     {
     // Allow specific usernames
-    $allowedNames = ['Sannie', 'Trevor', 'Dev'];
+    // $allowedNames = ['Sannie', 'Trevor', 'Dev'];
 
-    // Check if the user's name matches OR they have the special email domain
-    return in_array($this->name, $allowedNames, true)
-        || str_ends_with($this->email, '@acadadmin.com');
+    // // Check if the user's name matches OR they have the special email domain
+    // return in_array($this->name, $allowedNames, true)
+    //     || str_ends_with($this->email, '@acadadmin.com');
+    return true;
     }
 
     public function assignedProjects(): HasMany
